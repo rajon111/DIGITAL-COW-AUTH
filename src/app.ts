@@ -3,6 +3,8 @@ import cors from 'cors';
 // import globalErrorHandler from './app/middlewares/globalErrorHandler';
 // import routers from './app/routes';
 import httpStatus from 'http-status';
+import router from './app/routes';
+import globalErrorHandler from './app/middlewares/globalErrorHandler';
 
 const app: Application = express();
 
@@ -13,10 +15,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // // Application routes
-// app.use('/api/v1', routers);
+app.use('/api/v1', router);
 
 // // global errors handler
-// app.use(globalErrorHandler);
+app.use(globalErrorHandler);
 
 //handle notFound Route error
 app.use((req: Request, res: Response, next: NextFunction) => {
