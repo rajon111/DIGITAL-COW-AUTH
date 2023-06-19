@@ -34,8 +34,7 @@ const userSchema = new Schema<IUser>(
       required: true,
     },
     income: {
-      type: String,
-      required: true,
+      type: Number,
     },
   },
   {
@@ -45,5 +44,21 @@ const userSchema = new Schema<IUser>(
     },
   }
 );
+
+userSchema.pre<IUser>('save', function (next) {
+  if (!this.role) {
+    this.role = 'buyer';
+  }
+  if (this.role === 'buyer' && typeof this.income !== 'number') {
+    this.income = 0;
+  }
+  if (this.role === 'seller') {
+    // Set required fields for the 'buyer' role
+    if (!this.income) {
+      return next(new Error("income is required for 'seller' role."));
+    }
+  }
+  next();
+});
 
 export const User = model<IUser, UserModel>('User', userSchema);
