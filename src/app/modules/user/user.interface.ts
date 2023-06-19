@@ -5,7 +5,6 @@ export type UserName = {
   lastName: string;
 };
 export type IUser = {
-  id: string;
   phoneNumber: string;
   role: string;
   password: string;

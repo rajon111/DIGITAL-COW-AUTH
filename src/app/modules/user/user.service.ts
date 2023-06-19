@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import { IUser, IUserFilters } from './user.interface';
@@ -83,7 +84,22 @@ const updateUser = async (
   id: string,
   payload: Partial<IUser>
 ): Promise<IUser | null> => {
-  const result = await User.findOneAndUpdate({ _id: id }, payload, {
+  const isExist = await User.findOneAndUpdate({ id });
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+
+  const { name, ...userData } = payload;
+
+  const updatedUserData: Partial<IUser> = { ...userData };
+
+  if (name && Object.keys(name).length > 0) {
+    Object.keys(name).forEach(key => {
+      const nameKey = `name.${key}` as keyof Partial<IUser>; // `name.fisrtName`
+      (updatedUserData as any)[nameKey] = name[key as keyof typeof name];
+    });
+  }
+  const result = await User.findOneAndUpdate({ _id: id }, updatedUserData, {
     new: true,
   });
   return result;
