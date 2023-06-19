@@ -1,12 +1,18 @@
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 
+export type UserName = {
+  firstName: string;
+  lastName: string;
+};
 export type IUser = {
-  searchTerm?: string;
   id: string;
+  phoneNumber: string;
   role: string;
   password: string;
-  buyer?: Types.ObjectId;
-  seller?: Types.ObjectId;
+  name: UserName;
+  address: string;
+  budget: string;
+  income: string;
 };
 
 export type UserModel = Model<IUser, Record<string, unknown>>;

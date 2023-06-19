@@ -10,8 +10,8 @@ import pick from '../../../shared/pick';
 
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { ...user } = req.body;
-    const result = await UserService.createUser(user);
+    const { ...userData } = req.body;
+    const result = await UserService.createUser(userData);
     res.status(200).json({
       success: true,
       message: 'User created successfully',
@@ -31,7 +31,7 @@ const getAllUsers = catchAsync(async (req: Request, res: Response) => {
   sendResponse<IUser[]>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'user retrieved successfully',
+    message: 'Users  retrieved successfully',
     meta: result.meta,
     data: result.data,
   });

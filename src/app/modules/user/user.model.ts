@@ -8,22 +8,39 @@ const userSchema = new Schema<IUser>(
       required: true,
       unique: true,
     },
+    password: {
+      type: String,
+      required: true,
+    },
     role: {
       type: String,
       enum: ['buyer', 'seller'],
       required: true,
     },
-    password: {
+    name: {
+      required: true,
+      type: {
+        firstName: {
+          type: String,
+          required: true,
+        },
+        lastName: {
+          type: String,
+          required: true,
+        },
+      },
+    },
+    address: {
       type: String,
       required: true,
     },
-    buyer: {
-      type: Schema.Types.ObjectId,
-      ref: 'Buyer',
+    budget: {
+      type: String,
+      required: true,
     },
-    seller: {
-      type: Schema.Types.ObjectId,
-      ref: 'Seller',
+    income: {
+      type: String,
+      required: true,
     },
   },
   {
