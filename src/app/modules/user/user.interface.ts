@@ -10,7 +10,7 @@ export type IUser = {
   password: string;
   name: UserName;
   address: string;
-  budget: string;
+  budget: number;
   income?: number;
 };
 
