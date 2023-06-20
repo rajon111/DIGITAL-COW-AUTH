@@ -25,3 +25,8 @@ export type ICow = {
 };
 
 export type CowModel = Model<ICow, Record<string, unknown>>;
+
+export type ICowfilters = {
+  searchTerm?: string;
+  seller?: mongoose.Types.ObjectId;
+};

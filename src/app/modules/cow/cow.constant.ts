@@ -11,4 +11,12 @@ export const cowLocation: ICowLocation[] = [
   'Mymensingh',
 ];
 
+export const cowFilterableFields = [
+  'price',
+  'category',
+  'location',
+  'level',
+  'breed',
+];
+
 export const cowCategory: ICowCategory[] = ['Dairy', 'Beef', 'DualPurpose'];
