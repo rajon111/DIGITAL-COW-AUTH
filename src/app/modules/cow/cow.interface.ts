@@ -28,5 +28,7 @@ export type CowModel = Model<ICow, Record<string, unknown>>;
 
 export type ICowfilters = {
   searchTerm?: string;
+  maxPrice?: number;
+  minPrice?: number;
   seller?: mongoose.Types.ObjectId;
 };

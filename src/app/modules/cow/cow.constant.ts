@@ -17,6 +17,8 @@ export const cowFilterableFields = [
   'location',
   'level',
   'breed',
+  'maxPrice',
+  'minPrice',
 ];
 
 export const cowCategory: ICowCategory[] = ['Dairy', 'Beef', 'DualPurpose'];

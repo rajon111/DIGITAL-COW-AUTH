@@ -23,7 +23,7 @@ const getAllCows = async (
 ): Promise<IGenericResponse<ICow[]>> => {
   const { limit, page, skip, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(paginationOptions);
-  const { searchTerm, ...filtersData } = filters;
+  const { searchTerm, minPrice, maxPrice, ...filtersData } = filters;
 
   const andConditions = [];
 
@@ -34,6 +34,20 @@ const getAllCows = async (
         { breed: { $regex: searchTerm, $options: 'i' } },
         { category: { $regex: searchTerm, $options: 'i' } },
       ],
+    });
+  }
+
+  if (minPrice && maxPrice) {
+    andConditions.push({
+      price: { $gte: minPrice, $lte: maxPrice },
+    });
+  } else if (minPrice) {
+    andConditions.push({
+      price: { $gte: minPrice },
+    });
+  } else if (maxPrice) {
+    andConditions.push({
+      price: { $lte: maxPrice },
     });
   }
 
