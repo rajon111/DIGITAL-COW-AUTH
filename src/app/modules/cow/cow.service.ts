@@ -13,12 +13,23 @@ const createCow = async (payload: ICow): Promise<ICow | null> => {
   return createCow;
 };
 
-const getSingleCow = async (id: string) => {
+const getSingleCow = async (id: string): Promise<ICow | null> => {
   const result = await Cow.findById(id).populate('seller');
+  return result;
+};
+
+const updateCow = async (
+  id: string,
+  payload: Partial<ICow>
+): Promise<ICow | null> => {
+  const result = await Cow.findOneAndUpdate({ _id: id }, payload, {
+    new: true,
+  }).populate('seller');
   return result;
 };
 
 export const CowService = {
   createCow,
   getSingleCow,
+  updateCow,
 };
