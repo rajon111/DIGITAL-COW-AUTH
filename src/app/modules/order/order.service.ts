@@ -78,6 +78,12 @@ const createOrder = async (cowId: string, buyerId: string) => {
   }
 };
 
+const getAllOrders = async () => {
+  const result = await Order.find();
+  return result;
+};
+
 export const OrderService = {
   createOrder,
+  getAllOrders,
 };
