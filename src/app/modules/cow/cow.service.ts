@@ -13,6 +13,12 @@ const createCow = async (payload: ICow): Promise<ICow | null> => {
   return createCow;
 };
 
+const getSingleCow = async (id: string) => {
+  const result = await Cow.findById(id).populate('seller');
+  return result;
+};
+
 export const CowService = {
   createCow,
+  getSingleCow,
 };
