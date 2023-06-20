@@ -54,6 +54,17 @@ const createOrder = async (cowId: string, buyerId: string) => {
     });
     await order.save({ session });
 
+    // Update the seller's income
+    const seller = await User.findByIdAndUpdate(
+      selectedCow.seller,
+      { $inc: { income: selectedCow.price } },
+      { new: true, session }
+    );
+
+    if (!seller) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'Seller not found');
+    }
+
     // Commit the transaction
     await session.commitTransaction();
     session.endSession();
